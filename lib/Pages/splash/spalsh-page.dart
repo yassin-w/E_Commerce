@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, file_names
 
-import 'package:e_commerce/Pages/Home/home-page.dart';
+import 'package:e_commerce/Pages/authintication/login.dart';
 import 'package:flutter/material.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
@@ -15,7 +15,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return SplashScreenView(
-      navigateRoute: HomePage(),
+      navigateRoute: LoginPage(),
       duration: 2000,
       imageSize: 130,
       imageSrc: "assets/logo/logo.png",

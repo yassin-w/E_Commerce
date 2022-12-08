@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors, file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +24,7 @@ class ProductCard extends StatefulWidget {
       required this.quantity,
       required this.image})
       : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _CustomCardComp();
 }
@@ -61,12 +63,57 @@ class _CustomCardComp extends State<ProductCard> {
                 trailing: IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
-                    Provider.of<ProductProvider>(context, listen: false)
-                        .deleteProduct(widget.id);
+                    showDialog<void>(
+                      context: context,
+                      builder: (BuildContext dialogContext) {
+                        return AlertDialog(
+                          actions: [
+                            ElevatedButton(
+                              child: Text("Cancel"),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HomePage()));
+                              },
+                            ),
+                            ElevatedButton(
+                              child: Text("delete"),
+                              onPressed: () {
+                                Provider.of<ProductProvider>(context,
+                                        listen: false)
+                                    .deleteProduct(widget.id);
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomePage()),
+                                );
+                              },
+                            )
+                          ],
+                          title: SvgPicture.asset(
+                            "assets/icons/warning.svg",
+                            height: 50,
+                            color: Colors.redAccent,
+                          ),
+                          content: SizedBox(
+                            height: 150,
+                            child: Column(
+                              children: const [
+                                Text(
+                                  'Are you sure?',
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                    'Do you really want to delete these records? This process cannot be undone.')
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
@@ -87,11 +134,15 @@ class _CustomCardComp extends State<ProductCard> {
                 children: [
                   ElevatedButton(
                     child: const Text('add to cart'),
-                    onPressed: () {/* ... */},
+                    onPressed: () {
+                      /* ... */
+                    },
                   ),
                   TextButton(
                     child: const Text('LEARN MORE'),
-                    onPressed: () {/* ... */},
+                    onPressed: () {
+                      /* ... */
+                    },
                   )
                 ],
               )

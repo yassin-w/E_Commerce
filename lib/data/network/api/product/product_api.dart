@@ -32,9 +32,8 @@ class ProductApi extends DioClient {
   Future<List<Product>> getProductsApi() async {
     try {
       final Response response = await dio.get(Endpoints.products);
+      print(response.data);
       final products = (response.data as List).map((e) {
-        print(e);
-        print("88888888888888888888888888888888888");
         return Product(
             product_id: e['product_id'],
             name: e['name'],
@@ -51,7 +50,7 @@ class ProductApi extends DioClient {
   Future<Product> updateProductApi(
       int id, String name, double price, int quantity, String image) async {
     try {
-      final Response response = await dioClient.put(
+      final Response response = await dio.put(
         '${Endpoints.products}/$id',
         data: {
           'name': name,
@@ -68,7 +67,7 @@ class ProductApi extends DioClient {
 
   Future<void> deleteProductApi(int id) async {
     try {
-      await dioClient.delete('${Endpoints.products}/$id');
+      await dio.delete('${Endpoints.products}/$id');
     } catch (e) {
       rethrow;
     }

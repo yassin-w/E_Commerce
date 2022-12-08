@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class ProductService {
   Future<List<Product>> getAllProducts() async {
-    const url = 'http://10.0.2.2:8080/api/products';
+    const url = 'http://10.0.2.2:8081/api/products';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
